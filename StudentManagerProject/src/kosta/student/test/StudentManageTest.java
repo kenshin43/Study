@@ -63,7 +63,6 @@ public class StudentManageTest {
 			try {
 				log.info("1.학생정보추가 | 2. 성적정보추가 | 3. 리스트 출력 | 4. 학생 정보 출력 | 5. 통계 | 0. 나가기");
 				ss[sc.nextInt()].function();
-				;
 			} catch (Exception e) {
 				System.out.println("잘못 입력 하셨습니다.");
 			}

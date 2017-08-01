@@ -29,4 +29,30 @@ public class StudentInfoAdd implements StudentService {
 		}
 	}
 
+	@Override
+	public int intInputData(Scanner sc) {
+		int x;
+		while (true) {
+			x = StudentService.super.intInputData(sc);
+			if (x >= 0 && x < 1000) {
+				break;
+			}
+			System.out.println("범위에 맞게 다시 입력해 주세요.");
+		}
+		return x;
+	}
+
+	@Override
+	public double doubleInputData(Scanner sc) {
+		double d;
+		while (true) {
+			d = StudentService.super.doubleInputData(sc);
+			if (d >= 0 && d <= 200) {
+				break;
+			}
+			System.out.println("키를 현실성에 맞게 다시 입력해 주세요.");
+		}
+		return d;
+	}
+
 }
