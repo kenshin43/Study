@@ -207,9 +207,7 @@ public class StudentManager {
 			}
 			//키 값이 있으면 해당 객체에다 저장한뒤 다시 Map에 저장
 			if (map.containsKey(str)) {
-				List<Student> list2 = map.get(str);
-				list2.add(s);
-				map.put(str, list2);
+				map.get(str).add(s);
 				//아니면 새로 생성한다.
 			} else {
 				List<Student> tempList = new ArrayList<Student>();
