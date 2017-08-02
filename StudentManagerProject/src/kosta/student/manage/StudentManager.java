@@ -17,7 +17,7 @@ import kosta.student.vo.Student;
 
 public class StudentManager {
 
-	List<Student> list = new LinkedList<>();
+	private List<Student> list = new LinkedList<>();
 
 	public String infoAdd(Student s) {
 		list.add(s);

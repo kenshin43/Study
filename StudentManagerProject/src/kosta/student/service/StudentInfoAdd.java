@@ -3,6 +3,7 @@ package kosta.student.service;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import kosta.student.exceptions.IntegerValueRangeException;
 import kosta.student.manage.StudentManager;
 import kosta.student.vo.Student;
 
@@ -37,7 +38,7 @@ public class StudentInfoAdd implements StudentService {
 			if (x >= 0 && x < 1000) {
 				break;
 			}
-			System.out.println("범위에 맞게 다시 입력해 주세요.");
+			throw new IntegerValueRangeException("범위에 맞게 입력하세요.");
 		}
 		return x;
 	}
