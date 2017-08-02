@@ -19,7 +19,7 @@ public class StudentStatistics implements StudentService {
 	@Override
 	public void function() {
 		log.info("[정보 입력] 1성별 2반별 3주소별 4학년별/문자열 입력");
-		String str = sm.Statistics(this.intInputData(sc), this.strInputData(sc));
+		String str = sm.Statistics7(this.intInputData(sc));
 		log.info(str);
 	}
 

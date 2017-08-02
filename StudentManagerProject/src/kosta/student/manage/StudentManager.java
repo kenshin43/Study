@@ -1,10 +1,12 @@
 package kosta.student.manage;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import kosta.student.vo.Student;
@@ -167,50 +169,96 @@ public class StudentManager {
 	}
 	// JDK 8
 
-	public String Statistics7(int type, String str) {
+	public String Statistics7(int type) {
+		
+		//임시로 저장 하는 List 객체
 		List<Student> slist = new LinkedList<Student>();
-		Iterator<Student> it = list.iterator();
+		
+		//계산된 값을 저장하는 String
 		String statisticedStr = "";
+		
+		//계산을 위한 변수
 		double total = 0;
 		int cnt = 0;
-		switch (type) {
-		case 1:
-			while (it.hasNext()) {
-				StringBuffer sb = new StringBuffer();
-				Student s = it.next();
-				if (s.getGender().equals(str)) {
-					sb.append(s.toString());
-				}
-			}
-			break;
-		case 2:
-			while (it.hasNext()) {
-				Student s = it.next();
-				if (s.getClazz().equals(str)) {
-					total += s.getScore();
-					cnt++;
-				}
-				statisticedStr = Double.toString((total / cnt));
-			}
-			break;
-		case 3:
-			while (it.hasNext()) {
-				Student s = it.next();
-				if (s.getAddr().equals(str)) {
-					total += s.getScore();
-					cnt++;
-				}
-				statisticedStr = Double.toString((total / cnt));
-			}
-			break;
-		case 4:
+		String str = "";
+		
+		//리스트를 반복해서 Key 값을 받아옵니다.
+		Iterator<Student> it = list.iterator();
+		
+		//각 키값을 받아옵니다.
+		Map<String, List<Student>> map = new HashMap<String, List<Student>>();
+		
+		//키 값에 따라서 객체를 따로 저장합니다.
+		while (it.hasNext()) {
 			Student s = it.next();
-			if (Integer.toString(s.getYear()).equals(str)) {
-				total += s.getHeight();
-				cnt++;
+			switch (type) {
+			case 1:
+				str = s.getGender();
+				break;
+			case 2:
+				str = s.getClazz();
+				break;
+			case 3:
+				str = s.getAddr();
+				break;
+			case 4:
+				str = Integer.toString(s.getYear());
+				break;
 			}
-			statisticedStr = Double.toString((total / cnt));
-			break;
+			//키 값이 있으면 해당 객체에다 저장한뒤 다시 Map에 저장
+			if (map.containsKey(str)) {
+				List<Student> list2 = map.get(str);
+				list2.add(s);
+				map.put(str, list2);
+				//아니면 새로 생성한다.
+			} else {
+				List<Student> tempList = new ArrayList<Student>();
+				tempList.add(s);
+				map.put(str, tempList);
+			}
+		}
+
+		Iterator<String> itString = map.keySet().iterator();
+
+		//리스트 별로 저장된 값을 계산합니다.
+		while (itString.hasNext()) {
+			str = itString.next();
+			slist = map.get(str);
+			Iterator<Student> it2 = slist.iterator();
+			total = 0;
+			cnt = 0;
+			switch (type) {
+			case 1:
+				while (it2.hasNext()) {
+					Student s = it2.next();
+					total += s.getScore();
+					cnt++;
+				}
+				break;
+			case 2:
+				while (it2.hasNext()) {
+					Student s = it2.next();
+					total += s.getScore();
+					cnt++;
+				}
+				break;
+			case 3:
+				while (it2.hasNext()) {
+					Student s = it2.next();
+					total += s.getScore();
+					cnt++;
+				}
+				break;
+			case 4:
+				while (it2.hasNext()) {
+					Student s = it2.next();
+					total += s.getHeight();
+					cnt++;
+				}
+				break;
+			}
+			statisticedStr += str + " : " + Double.toString((total / cnt));
+			statisticedStr += "\n";
 		}
 		return statisticedStr;
 	}
